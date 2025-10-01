@@ -23,8 +23,7 @@ It’s built using **Angular** and provides a user interface to manage inventori
 
 ## 🎨 UI & Features
 
-- Black and yellow theme
-- Top navigation bar for main sections
+- Side navigation bar for main sections
 - Responsive layout
 - Tables for listing data
 - Forms for create/edit operations
