@@ -1,0 +1,78 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%" class="b-1 shadow-none">
+    <mat-card-header>
+      <mat-card-title>Update Shelf</mat-card-title>
+    </mat-card-header>
+    <form
+      [formGroup]="shelfForm"
+      (ngSubmit)="updateShelf(shelfForm.value)"
+      novalidate
+    >
+      <mat-card-content>
+        <!-- Shelf Name -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="Shelf name"
+            formControlName="name"
+            id="name"
+          />
+          <mat-error *ngIf="hasError('name', 'required')"
+            >Name is required</mat-error
+          >
+          <mat-error *ngIf="hasError('name', 'maxlength')"
+            >Max 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Warehouse Selection -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-label>Warehouse</mat-label>
+          <mat-select formControlName="warehouse_Id">
+            <mat-option
+              *ngFor="let warehouse of warehouses"
+              [value]="warehouse.id"
+            >
+              {{ warehouse.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Category Selection -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="categoryId">
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox formControlName="isAvailable">isAvailable</mat-checkbox>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          class="w-100"
+          [disabled]="!shelfForm.valid"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          mat-flat-button
+          color="warn"
+          class="w-100"
+          (click)="redirectToShelfList()"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

@@ -1,0 +1,115 @@
+<div class="dashboard-container">
+  <!-- Warehouse Header with Quick Stats -->
+  <div class="warehouse-header">
+    <div class="header-content">
+      <h1>{{ "Warehouse Overview" }}</h1>
+      <p class="header-subtitle">Real-time Inventory Management</p>
+    </div>
+    <div class="header-divider"></div>
+  </div>
+
+  <!-- Stats Cards Section -->
+  <div class="stats-cards-container">
+    <mat-card class="stats-card category-card">
+      <mat-card-content>
+        <div class="card-icon">
+          <i class="fas fa-boxes"></i>
+        </div>
+        <div class="card-info">
+          <h3>Total Categories</h3>
+          <div class="card-value">{{ totalCategories }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stats-card warehouse-card">
+      <mat-card-content>
+        <div class="card-icon">
+          <i class="fas fa-warehouse"></i>
+        </div>
+        <div class="card-info">
+          <h3>Total Warehouses</h3>
+          <div class="card-value">{{ totalWarehouses }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stats-card shelf-card">
+      <mat-card-content>
+        <div class="card-icon">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="card-info">
+          <h3>Total Shelves</h3>
+          <div class="card-value">{{ totalShelves }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stats-card price-card">
+      <mat-card-content>
+        <div class="card-icon">
+          <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="card-info">
+          <h3>Total Price</h3>
+          <div class="card-value">
+            {{ totalPrice | currency : "USD" : "" : "1.0-0" }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-container">
+    <!-- Categories Chart -->
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>
+          <i class="fas fa-chart-bar"></i>
+          Category Distribution
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ngx-charts-bar-vertical
+          [view]="[700, 300]"
+          [scheme]="'nightLights'"
+          [results]="categoryChartData"
+          [gradient]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxisLabel]="'Category'"
+          [yAxisLabel]="'Total Shipments'"
+          [animations]="true"
+          [roundDomains]="true"
+        ></ngx-charts-bar-vertical>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Shelves Chart -->
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>
+          <i class="fas fa-chart-pie"></i>
+          Shelf Availability Status
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ngx-charts-pie-chart
+          [view]="[500, 300]"
+          [results]="shelfChartData"
+          [gradient]="true"
+          [labels]="true"
+          [doughnut]="true"
+          [animations]="true"
+          [legend]="true"
+          [legendPosition]="legendPosition"
+          [customColors]="customShelfColors"
+        ></ngx-charts-pie-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

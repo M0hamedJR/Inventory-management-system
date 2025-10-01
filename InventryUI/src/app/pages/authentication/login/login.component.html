@@ -1,0 +1,112 @@
+<div
+  class="blank-layout-container d-flex justify-content-center align-items-center"
+  style="height: 100vh; position: relative; background-color: #095eb2"
+>
+  <div
+    class="position-relative w-100 h-100"
+    style="position: relative; width: 100%; height: 100%"
+  >
+    <!-- Login Card -->
+    <div
+      class="position-absolute"
+      style="
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 400px;
+        z-index: 10;
+      "
+    >
+      <mat-card
+        class="cardWithShadow boxed-auth"
+        style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 12px"
+      >
+        <mat-card-content style="padding: 1.5rem">
+          <div class="text-center mb-3">
+            <a>
+              <img
+                src="../../../../assets/images/logos/invMange.png"
+                alt="logo"
+                style="height: 100px"
+              />
+            </a>
+          </div>
+
+          <div *ngIf="showError" class="error-message">
+            <mat-error>Email or Password incorrect</mat-error>
+          </div>
+
+          <mat-card-title
+            style="color: #0313d5; text-align: center; margin-bottom: 1rem"
+          >
+            Log in
+          </mat-card-title>
+
+          <form
+            [formGroup]="loginForm"
+            autocomplete="off"
+            novalidate
+            (ngSubmit)="loginUser(loginForm.value)"
+          >
+            <mat-form-field
+              appearance="outline"
+              class="w-100"
+              style="margin-bottom: 1rem"
+            >
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="username"
+                style="color: black"
+              />
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              class="w-100"
+              style="margin-bottom: 1rem"
+            >
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password"
+                style="color: black"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility($event)"
+              >
+                <mat-icon>{{
+                  hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <div class="d-flex justify-content-end" style="margin-bottom: 1rem">
+              <a
+                [routerLink]="['/authentication/register-user']"
+                style="color: #007bff; text-decoration: none; font-weight: 600"
+                >Register</a
+              >
+            </div>
+
+            <button
+              mat-flat-button
+              color="primary"
+              class="w-100"
+              type="submit"
+              [disabled]="!loginForm.valid"
+              style="background-color: #007bff; color: white; font-weight: 600"
+            >
+              Sign In
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

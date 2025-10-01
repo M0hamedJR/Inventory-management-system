@@ -1,0 +1,252 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%" class="b-1 shadow-none">
+    <mat-card-header>
+      <mat-card-title>Update Shipment</mat-card-title>
+    </mat-card-header>
+    <form
+      [formGroup]="deviceForm"
+      autocomplete="off"
+      novalidate
+      (ngSubmit)="updateShipment(deviceForm.value)"
+    >
+      <mat-card-content>
+        <!-- Name Input -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="Shipment name"
+            formControlName="name"
+            id="name"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')"
+            >Name is required</mat-error
+          >
+          <mat-error *ngIf="hasError('name', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- customerName -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="customerName"
+            formControlName="customerName"
+            id="customerName"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('customerName', 'required')"
+            >Customer Name is required</mat-error
+          >
+          <mat-error *ngIf="hasError('customerName', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- dealer -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="dealer"
+            formControlName="dealer"
+            id="dealer"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('dealer', 'required')"
+            >Dealer is required</mat-error
+          >
+          <mat-error *ngIf="hasError('dealer', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- phone -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="phone"
+            formControlName="phone"
+            id="phone"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('phone', 'required')"
+            >Phone is required</mat-error
+          >
+          <mat-error *ngIf="hasError('phone', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Category Dropdown -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select
+            placeholder="Select Category"
+            formControlName="categoryId"
+            id="categoryId"
+          >
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('categoryId', 'required')"
+            >Category is required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shelf Dropdown -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select
+            placeholder="Select Shelf"
+            formControlName="shelfId"
+            id="shelfId"
+          >
+            <mat-option *ngFor="let shelf of shelfs" [value]="shelf.id">
+              {{ shelf.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Weight Dropdown -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="number"
+            placeholder="weight"
+            formControlName="weight"
+            id="weight"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('weight', 'required')"
+            >Weight is required</mat-error
+          >
+          <mat-error *ngIf="hasError('weight', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shipped_From  -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="date"
+            placeholder="shipped_From"
+            formControlName="shipped_From"
+            id="shipped_From"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('shipped_From', 'required')"
+            >Date is required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shipped_To -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="date"
+            placeholder="shipped_To"
+            formControlName="shipped_To"
+            id="shipped_To"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('shipped_To', 'required')"
+            >Date is required</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="shipped_Address_From"
+            formControlName="shipped_Address_From"
+            id="shipped_Address_From"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('shipped_Address_From', 'required')"
+            >Address is required</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="shipped_Address_To"
+            formControlName="shipped_Address_To"
+            id="shipped_Address_To"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('shipped_Address_To', 'required')"
+            >Address is required</mat-error
+          >
+        </mat-form-field>
+        <!-- price -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="price"
+            formControlName="price"
+            id="price"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('price', 'required')"
+            >price is required</mat-error
+          >
+        </mat-form-field>
+        <!-- in_Out -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-label>In/Out</mat-label>
+          <mat-select formControlName="in_Out">
+            <mat-option [value]="true">In</mat-option>
+            <mat-option [value]="false">Out</mat-option>
+            <mat-option [value]="null">none</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select
+            placeholder="Select Warehouse"
+            formControlName="warehouseId"
+            id="warehouseId"
+          >
+            <mat-option
+              *ngFor="let warehouse of warehouses"
+              [value]="warehouse.id"
+            >
+              {{ warehouse.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          class="w-100 action-button"
+          [disabled]="!deviceForm.valid"
+        >
+          Update Shipment
+        </button>
+        <button
+          type="button"
+          mat-flat-button
+          color="warn"
+          class="w-100"
+          (click)="redirectToShipmentList()"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

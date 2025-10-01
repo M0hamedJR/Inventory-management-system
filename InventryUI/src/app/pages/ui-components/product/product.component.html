@@ -1,0 +1,231 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">All Shipments</mat-card-title>
+    <span class="flex-1-auto"></span>
+    <button
+      mat-flat-button
+      color="primary"
+      matTooltipPosition="left"
+      class="m-l-8"
+      matTooltipHideDelay="100000"
+      (click)="createShipment()"
+    >
+      <mat-icon>add</mat-icon>Create new shipment
+    </button>
+  </mat-card-header>
+
+  <mat-card-content class="b-t-1">
+    <!-- Filter Form -->
+    <form [formGroup]="filterForm" class="filter-form">
+      <!-- Category Dropdown -->
+      <mat-form-field class="w-100 col-sm-6 col-lg-4" appearance="outline">
+        <mat-label style="color: blue">Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option value="">All Categories</mat-option>
+          <mat-option
+            *ngFor="let category of categories"
+            [value]="category.name"
+          >
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-100 col-sm-6 col-lg-4" appearance="outline">
+        <mat-label style="color: blue">Shelves</mat-label>
+        <mat-select formControlName="shelves">
+          <mat-option value="">All Shelves</mat-option>
+          <mat-option *ngFor="let shelf of shelfs" [value]="shelf.name">
+            {{ shelf.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- shelf Dropdown -->
+    </form>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <input
+        matInput
+        type="text"
+        (keyup)="doFilter($any($event).target.value)"
+        placeholder="Search...."
+      />
+    </mat-form-field>
+    <!-- Device Table -->
+    <div class="table-responsive m-t-16">
+      <table mat-table [dataSource]="dataSource" matSort matSortStart="desc">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th
+            style="color: blue"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Name
+          </th>
+          <td style="color: blue" mat-cell *matCellDef="let element">
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <!-- Serial Number Column -->
+        <ng-container matColumnDef="serialNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Serial Number
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.serialNumber }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryName">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Category
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ device.categoryName }}
+          </td>
+        </ng-container>
+
+        <!--warehouse Id-->
+        <ng-container matColumnDef="warehouseName">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Warehouse Name
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ device.warehouseName }}
+          </td>
+        </ng-container>
+
+        <!-- CustomerName -->
+        <ng-container matColumnDef="customerName">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Customer Name
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ device.customerName }}
+          </td>
+        </ng-container>
+        <!-- Phone -->
+        <ng-container matColumnDef="phone">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Phone
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ device.phone }}
+          </td>
+        </ng-container>
+        <!-- dealer -->
+        <ng-container matColumnDef="dealer">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Dealer
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ device.dealer }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Price
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ device.price }}
+          </td>
+        </ng-container>
+        <!-- in-Out -->
+        <ng-container matColumnDef="in_Out">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            in_Out
+          </th>
+          <td mat-cell *matCellDef="let device" class="mat-body-1">
+            {{ getInOutStatus(device.in_Out) }}
+          </td>
+        </ng-container>
+
+        <!-- shelf Column-->
+        <ng-container matColumnDef="shelfName">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+            mat-sort-header
+          >
+            Shelf
+          </th>
+          <td mat-cell *matCellDef="let shelf" class="mat-body-1">
+            {{ shelf.shelfName }}
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>
+            <ng-container *ngIf="isAdmin">Actions button</ng-container>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="isAdmin"
+              mat-icon-button
+              color="accent"
+              (click)="redirectToUpdate(element.id)"
+            >
+              <mat-icon class="mat-18">system_update</mat-icon>
+            </button>
+            <button
+              *ngIf="isAdmin"
+              mat-icon-button
+              color="warn"
+              (click)="deleteShipment(element.id)"
+            >
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        [pageSize]="4"
+        [pageSizeOptions]="[2, 4, 6, 8, 10]"
+      ></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

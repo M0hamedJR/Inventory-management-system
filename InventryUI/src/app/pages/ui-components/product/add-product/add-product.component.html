@@ -1,0 +1,231 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%" class="b-1 shadow-none">
+    <mat-card-header>
+      <mat-card-title>Add a new shipment</mat-card-title>
+    </mat-card-header>
+    <form
+      [formGroup]="deviceForm"
+      autocomplete="off"
+      novalidate
+      (ngSubmit)="createShipment(deviceForm.value)"
+    >
+      <mat-card-content>
+        <!-- Name Input -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="Shipment name"
+            formControlName="name"
+            id="name"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')"
+            >Name is required</mat-error
+          >
+          <mat-error *ngIf="hasError('name', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+        <!-- customerName -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="customerName "
+            formControlName="customerName"
+            id="customerName"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('customerName', 'required')"
+            >Customer Name is required</mat-error
+          >
+          <mat-error *ngIf="hasError('customerName', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+        <!-- dealer -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="dealer"
+            formControlName="dealer"
+            id="dealer"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('dealer', 'required')"
+            >Dealer is required</mat-error
+          >
+          <mat-error *ngIf="hasError('dealer', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- phone -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="phone"
+            formControlName="phone"
+            id="phone"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('phone', 'required')"
+            >Phone is required</mat-error
+          >
+          <mat-error *ngIf="hasError('phone', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Category Dropdown -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select
+            placeholder="Select Category"
+            formControlName="categoryId"
+            id="categoryId"
+          >
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('categoryId', 'required')"
+            >Category is required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- whieght Dropdown -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="number"
+            placeholder="Weights "
+            min="1"
+            formControlName="Weight"
+            id="Weights"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('Weight', 'required')"
+            >Weight is required</mat-error
+          >
+          <mat-error *ngIf="hasError('Weight', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Price -->
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="price"
+            formControlName="Price"
+            id="Price"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('Price', 'required')"
+            >Price is required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shipped From Date Dropdown -->
+        <label>Shipped From Date </label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="date"
+            placeholder="Shipped_From name"
+            formControlName="Shipped_From"
+            id="Shipped_From"
+          />
+          <mat-error *ngIf="hasError('Shipped_From', 'required')"
+            >Shipped Date required</mat-error
+          >
+          <mat-error *ngIf="hasError('Shipped_From', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shipped to Date Dropdown -->
+        <label>Shipped To Date </label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="date"
+            placeholder="Shipped_To name"
+            formControlName="Shipped_To"
+            id="Shipped_To"
+          />
+          <mat-error *ngIf="hasError('Shipped_To', 'required')"
+            >Shipped Date required</mat-error
+          >
+          <mat-error *ngIf="hasError('Shipped_To', 'maxlength')"
+            >Date is required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shipped_Address_From Dropdown -->
+        <label>Shipped Address From </label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="address"
+            formControlName="Shipped_Address_From"
+            id="Shipped_Address_From"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('Shipped_Address_From', 'required')"
+            >Shipped_Address_From is required</mat-error
+          >
+          <mat-error *ngIf="hasError('Shipped_Address_From', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <!-- Shipped_Address_To Dropdown -->
+        <label>Shipped Address To </label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="address"
+            formControlName="Shipped_Address_To"
+            id="Shipped_Address_To"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('Shipped_Address_To', 'required')"
+            >Shipped Address is required</mat-error
+          >
+          <mat-error *ngIf="hasError('Shipped_Address_To', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          class="w-100 action-button"
+          [disabled]="!deviceForm.valid"
+        >
+          Add Shipment
+        </button>
+        <button
+          type="button"
+          mat-flat-button
+          color="warn"
+          class="w-100"
+          (click)="redirectToShipmentList()"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

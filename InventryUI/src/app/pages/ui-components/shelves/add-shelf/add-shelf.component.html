@@ -1,0 +1,89 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%" class="b-1 shadow-none">
+    <mat-card-header>
+      <mat-card-title>Create a new Shelf</mat-card-title>
+    </mat-card-header>
+    <form
+      [formGroup]="shelfForm"
+      autocomplete="off"
+      novalidate
+      (ngSubmit)="createShelf(shelfForm.value)"
+    >
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input
+            matInput
+            type="text"
+            placeholder="Shelf name"
+            formControlName="name"
+            id="name"
+          />
+          <mat-hint align="end">Not more than 60 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')"
+            >Name is required</mat-error
+          >
+          <mat-error *ngIf="hasError('name', 'maxlength')"
+            >You have more than 60 characters</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select
+            placeholder="Select warehouse"
+            formControlName="warehouse_Id"
+            id="warehouse_Id"
+          >
+            <mat-option
+              *ngFor="let warehouse of Warehouse"
+              [value]="warehouse.id"
+            >
+              {{ warehouse.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('WarehouseId', 'required')"
+            >Shelf is required</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select
+            placeholder="Select category"
+            formControlName="categoryId"
+            id="categoryId"
+          >
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('categoryId', 'required')"
+            >Shelf is required</mat-error
+          >
+        </mat-form-field>
+
+        <mat-checkbox formControlName="isAvailable">isAvailable</mat-checkbox>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          class="w-100 action-button"
+          [disabled]="!shelfForm.valid"
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          mat-flat-button
+          color="warn"
+          class="w-100"
+          (click)="redirectToShelfList()"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>
